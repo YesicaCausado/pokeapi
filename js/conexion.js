@@ -1,36 +1,38 @@
-let lanzamientos = [];
+let pokemones = [];
+let totalPokes = 6;
 
+// Conexión para obtener la lista de Pokémon
 async function conexionLista(filtrotipo) {
-  if (filtrotipo === "ALL") {
-    const res = await fetch('https://api.spacexdata.com/v4/launches');
-    const data = await res.json(); 
-    return data; 
-  } else {
-    const res = await fetch(`https://api.spacexdata.com/v4/launches/${filtrotipo}`);
-    const data = await res.json(); 
-    const lanzamientosTipo = [];
-    for (let i = 0; i < data.lanzamientos.length; i++) {
-      lanzamientosTipo.push(data.lanzamientos[i]);
+
+  
+  if(filtrotipo == "All"){
+    const res = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${totalPokes}`);
+    const data = await res.json();
+    return data.results;
+  }else{
+    const res = await fetch(`https://pokeapi.co/api/v2/type/${filtrotipo}`);
+    const data = await res.json();
+
+    const pokemonesTipo = [];
+    for (let i = 0; i < data.pokemon.length; i++) {
+      pokemonesTipo.push(data.pokemon[i].pokemon);
     }
-    return lanzamientosTipo; 
+    return pokemonesTipo;
   }
+
 }
 
 async function General() {
-  if (lanzamientos.length === 0) {
-    lanzamientos = await conexionLista("ALL");
+  if (pokemones.length === 0) {
+    pokemones = await conexionLista("All");
   }
-
-  Home(); 
-  console.log(lanzamientos[0].name); 
+  Home();
 }
 
-General();
 
-  async function FiltroConexion(Elfiltro){
+async function FiltroConexion(Elfiltro){
   document.getElementById("la-lista").innerHTML = "";
-  lanzamientos = await conexionLista(Elfiltro);
-  const listaHTML = GenerarLista(lanzamientos);
+  pokemones = await conexionLista(Elfiltro);
+  const listaHTML = generarLista(pokemones);
   document.getElementById("la-lista").innerHTML = listaHTML;
 }
-                              

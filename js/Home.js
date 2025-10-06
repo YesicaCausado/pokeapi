@@ -1,65 +1,81 @@
-function GenerarLista(lanzamientos) {
-    var listalanz = "";
-    for (let i = 0; i < lanzamientos.length; i++) {
-        const lanzamiento = lanzamientos[i];
-        const id = lanzamiento.id || i;
-        const nombre = lanzamiento.name || "Sin nombre";
-        const imagen = (lanzamiento.links && lanzamiento.links.patch && lanzamiento.links.patch.small) ? lanzamiento.links.patch.small : "https://via.placeholder.com/100x100?text=No+Image";
-        listalanz += `
-            <div class="un-lanzamiento" onclick="Detalle('${id}')">
-                <p>${i + 1} - ${nombre}</p>
-                <img src="${imagen}" width="auto" height="60" loading="lazy" alt="${nombre}">
-            </div>
-        `;
+function buscadorfuncion(sza){
+    if(sza.length >= 3){
+        const filtrados = [];
+        for (let i = 0; i < pokemones.length; i++) {
+            const nombre = pokemones[i].name.toLowerCase();
+            if (nombre.includes(sza.toLowerCase())) {
+                filtrados.push(pokemones[i]);
+            }
+        }
+        let listaHTML = generarLista(filtrados)
+        document.getElementById("la-lista").innerHTML = listaHTML;
+    }else{
+        let listaHTML = generarLista(pokemones)
+        document.getElementById("la-lista").innerHTML = listaHTML;
     }
-    return listalanz;
 }
 
-function Home() {
+function generarLista(arraypokemones) {
+    let listaHTML = "";
+    for (let i = 0; i < arraypokemones.length; i++) {
+        let id = arraypokemones[i].url.split("/")[6];
+        listaHTML += `
+        <div class="c-lista-pokemon poke-${id}" onclick="Detalle('${id}')">
+            <p>#${id}</p>
+            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png" width="auto" height="60" loading="lazy" alt="${arraypokemones[i].name}">
+            <p>${arraypokemones[i].name}</p>
+        </div>`;
+    }
 
-    const tipos = ["success", "failure", "upcoming", "all"];
+    return listaHTML;
+}
 
-    // Crear buscador
+function Home(filtro){
+
+    var root = document.getElementById("root");
+    root.innerHTML = ""
+    //buscador
     const buscador = document.createElement("input");
     buscador.classList.add("c-buscador");
     buscador.type = "text";
-    buscador.placeholder = "Buscar lanzamiento...";
+    buscador.placeholder = "Buscar Pokémon...";
+    buscador.addEventListener("input", () => {
+            buscadorfuncion(buscador.value);
+    });
 
-    // Crear filtro de botones
+    //contenedor filtro
+    const tipos = [
+        "normal", "fighting", "flying", "poison", "ground", "rock", "bug",
+        "ghost", "steel", "fire", "water", "grass", "electric", "psychic", "ice",
+        "dragon", "dark", "fairy", "stellar", "unknown"
+    ];
+
     const contenedorFiltro = document.createElement("div");
-    contenedorFiltro.classList.add("c-contenedor-filtro");
-
-
+    contenedorFiltro.classList.add("tipos-container"); 
 
     for (let i = 0; i < tipos.length; i++) {
         const btn = document.createElement("button");
         btn.textContent = tipos[i];
+        
+        // Agregar el evento click para filtrar por tipo
         btn.addEventListener("click", () => {
-            FiltroConexion(tipos[i]);
+            FiltroConexion(tipos[i]); 
         });
+
+        // Agregar el botón al contenedor
         contenedorFiltro.appendChild(btn);
     }
 
-    // Crear lista inicial
-    const contenedorLista = document.createElement("div");
-    contenedorLista.classList.add("c-contenedor-lista");
-    contenedorLista.id = "la-lista";
-    contenedorLista.innerHTML = GenerarLista(lanzamientos);
 
-    // Evento buscador
-    buscador.addEventListener("input", (e) => {
-        const valor = e.target.value;
-        if (valor.length >= 3) {
-            const filtrados = lanzamientos.filter(l => l.name && l.name.toLowerCase().includes(valor.toLowerCase()));
-            contenedorLista.innerHTML = GenerarLista(filtrados);
-        } else {
-            contenedorLista.innerHTML = GenerarLista(lanzamientos);
-        }
-    });
+    //add contenedor lista
+    const listaHTML = generarLista(pokemones);
+    var contenedorLista = document.createElement("div");
+    contenedorLista.classList.add("c-contenedor-lista"); 
+    contenedorLista.id = "la-lista"; 
+    contenedorLista.innerHTML = listaHTML;
 
-    // Agregar elementos al root
-    const root = document.getElementById("root");
-    root.innerHTML = "";
+    //agregar contenedores
+    document.getElementById("root").innerHTML = "";
     root.appendChild(buscador);
     root.appendChild(contenedorFiltro);
     root.appendChild(contenedorLista);

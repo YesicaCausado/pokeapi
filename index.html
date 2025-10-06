@@ -10,7 +10,7 @@
   <nav>
         <button onclick="Home()">Home</button>
         <button onclick="informacion()">Informacion</button>
-        <button onclick="original()">Original</button>
+        <button onclick="detalle()">Detalle</button>
         <button onclick="favoritos()">Favoritos</button>
     </nav>
     <div id ="root">
@@ -20,11 +20,13 @@
     <!--llamar a los 6 js -->
    <script src="js/conexion.js"></script>
    <script src="js/Home.js"></script>
-   <script src="js/original.js"></script>
-   <script src="js/pokemon.js"></script>
+   <script src="js/capturados.js"></script>
+   <script src="js/detalle.js"></script>
    <script src="js/informacion.js"></script>
    <script src="js/favoritos.js"></script>
   
-
+    <script>
+        document.addEventListener("DOMContentLoaded", General)
+    </script>
 </body>
 </html>
