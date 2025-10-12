@@ -1,11 +1,13 @@
 var esFavorito = false;
 
+// Función para agregar o quitar un Pokémon de favoritos
 function toggleFavorito(paramid, paramname) {
 
+    // Leer favoritos actuales desde localStorage
     let favoritos = JSON.parse(localStorage.getItem("favoritos")) || [];
     let existe = false
 
-  
+    // Verificar si ya está guardado
     for (let i = 0; i < favoritos.length; i++) {
         if (favoritos[i].name === paramname) {
             existe = true;
@@ -17,7 +19,7 @@ function toggleFavorito(paramid, paramname) {
         favoritos = favoritos.filter(poke => poke.name !== paramname);
         esFavorito = false;
     } else {
-        
+        // Si no está, agregarlo
         favoritos.push({
             name: paramname,
             url: `https://pokeapi.co/api/v2/pokemon/${paramid}/`
@@ -25,9 +27,10 @@ function toggleFavorito(paramid, paramname) {
         esFavorito = true;
     }
 
+    // Guardar el array actualizado en localStorage
     localStorage.setItem("favoritos", JSON.stringify(favoritos));
 
-
+    // Actualizar el icono en pantalla (si existe el botón)
     const boton = document.querySelector(`#corazon-${paramid}`);
     if (boton) boton.textContent = esFavorito ? "❤️" : "🤍";
 }
@@ -39,16 +42,17 @@ async function Detalle(parametro) {
     const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${parametro}`);
     const data = await res.json();
 
+    // Revisar si este Pokémon ya está en favoritos
     favoritos = JSON.parse(localStorage.getItem("favoritos")) || [];
     esFavorito = favoritos.some(poke => poke.name === data.name);
 
- 
+    // Tipos
     let tipoPoke = "";
     for (let i = 0; i < data.types.length; i++) {
         tipoPoke += `<span>${data.types[i].type.name}</span> `;
     }
 
- 
+    // HTML del detalle
     const detalle = `
     <section class="c-detalle">
       <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${data.id}.png" 
@@ -70,3 +74,7 @@ async function Detalle(parametro) {
 
     root.innerHTML = detalle;
 }
+
+// Exponer funciones para compatibilidad global
+window.toggleFavorito = toggleFavorito;
+window.Detalle = Detalle;

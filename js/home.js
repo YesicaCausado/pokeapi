@@ -75,8 +75,11 @@ function Home(filtro){
     contenedorLista.innerHTML = listaHTML;
 
     //agregar contenedores
-    document.getElementById("root").innerHTML = "";
     root.appendChild(buscador);
     root.appendChild(contenedorFiltro);
     root.appendChild(contenedorLista);
 }
+
+// Exponer globalmente sin cambiar lógica
+window.Home = Home;
+window.generarLista = generarLista;

@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -7,26 +6,29 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <nav>
-        <button onclick="Home()">Home</button>
-        <button onclick="informacion()">Informacion</button>
-        <button onclick="detalle()">Detalle</button>
-        <button onclick="favoritos()">Favoritos</button>
+    <nav>
+         <button onclick="Home()">Home</button>
+        <button onclick="Informativa()">Informativa</button>
+        <button onclick="Capturados()">Capturados</button>
+        <button onclick="Favoritos()">Favoritos</button>
     </nav>
-    <div id ="root">
-        <!--aqui se agrega lo que hagamos en js  -->
 
+    <div id="root">
+        <!-- aqui se agrega lo que hagamos en js -->
     </div>
-    <!--llamar a los 6 js -->
-   <script src="js/conexion.js"></script>
-   <script src="js/Home.js"></script>
-   <script src="js/capturados.js"></script>
-   <script src="js/detalle.js"></script>
-   <script src="js/informacion.js"></script>
-   <script src="js/favoritos.js"></script>
-  
-    <script>
-        document.addEventListener("DOMContentLoaded", General)
+    <script src="js/conexion.js"></script>
+    <script src="js/home.js"></script>
+    <script src="js/detalle.js"></script>
+    <script src="js/favoritos.js"></script>
+    <script src="js/informativa.js"></script>
+    <script src="js/capturados.js"></script>
+
+
+      <script>
+
+        document.addEventListener("DOMContentLoaded",General)
+
     </script>
+    
 </body>
 </html>

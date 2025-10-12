@@ -1,10 +1,11 @@
-
-// crear una funcion con el nombre  del archivo 
-function favoritos (){
-     let favoritosList = JSON.parse(localStorage.getItem("favoritos")) || [];
-    if(favoritosList.length == 0){
+function Favoritos(){
+    let favoritos = JSON.parse(localStorage.getItem("favoritos")) || [];
+    if(favoritos.length == 0){
         document.getElementById("root").innerHTML = "no hay favoritos"
     }else{
-        document.getElementById("root").innerHTML = generarLista(favoritosList)
+        document.getElementById("root").innerHTML = generarLista(favoritos)
     }
+    
 }
+
+window.Favoritos = Favoritos;

@@ -1,12 +1,13 @@
-let pokemones = [];
-let totalPokes = 6;
+// Usar almacenamiento global compartido para evitar redeclaraciones
+window.pokemones = window.pokemones || [];
+window.totalPokes = (typeof window.totalPokes !== 'undefined') ? window.totalPokes : 6;
 
 // Conexión para obtener la lista de Pokémon
 async function conexionLista(filtrotipo) {
 
   
   if(filtrotipo == "All"){
-    const res = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${totalPokes}`);
+    const res = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${window.totalPokes}`);
     const data = await res.json();
     return data.results;
   }else{
@@ -22,17 +23,23 @@ async function conexionLista(filtrotipo) {
 
 }
 
+// Cargar todos los Pokémon al iniciar
 async function General() {
-  if (pokemones.length === 0) {
-    pokemones = await conexionLista("All");
+  if (window.pokemones.length === 0) {
+    window.pokemones = await conexionLista("All");
   }
-  Home();
+  if (typeof Home === 'function') Home();
 }
 
+General()
 
 async function FiltroConexion(Elfiltro){
   document.getElementById("la-lista").innerHTML = "";
-  pokemones = await conexionLista(Elfiltro);
-  const listaHTML = generarLista(pokemones);
+  window.pokemones = await conexionLista(Elfiltro);
+  const listaHTML = generarLista(window.pokemones);
   document.getElementById("la-lista").innerHTML = listaHTML;
 }
+
+// Exponer funciones globales mínimas
+window.General = General;
+window.FiltroConexion = FiltroConexion;
