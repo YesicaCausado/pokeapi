@@ -63,6 +63,40 @@ nav button:hover{background:rgba(0,0,0,0.04)}
 /* Contenido */
 #root{padding:18px 0}
 
+/* Banner informativo / Portada */
+.banner{display:flex;flex-direction:row;align-items:center;gap:18px;background:linear-gradient(90deg,#fff7e6,#fff);padding:18px;border-radius:16px;box-shadow:var(--shadow);margin-bottom:18px;text-align:left}
+.banner:hover{transform:translateY(-4px);transition:transform .22s ease}
+.banner-img{width:320px;height:480px;object-fit:cover;border-radius:12px;border:6px solid rgba(255,203,5,0.18);box-shadow:0 18px 40px rgba(3,10,24,0.28);filter:drop-shadow(0 6px 30px rgba(255,200,60,0.12))}
+.banner-content h1{margin:8px 0 6px 0;font-size:26px}
+.banner-content p{margin:0 0 12px 0;color:var(--muted);max-width:640px}
+.banner-actions{display:flex;gap:8px;justify-content:center}
+.banner .guardar{background:#ffcb05;color:#111;font-weight:700;padding:10px 12px}
+
+/* Collage destacado */
+.collage{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;justify-items:center;align-items:center}
+.collage-item{width:180px;height:220px;background:linear-gradient(180deg,#fff,#fafafa);border-radius:12px;display:flex;align-items:center;justify-content:center;position:relative;box-shadow:var(--shadow);transition:transform .18s ease}
+.collage-item img{width:140px;height:140px;object-fit:contain}
+.collage-item .collage-id{position:absolute;bottom:8px;left:8px;background:rgba(0,0,0,0.6);color:#fff;padding:4px 8px;border-radius:8px;font-weight:700}
+.collage-item:hover{transform:translateY(-6px) scale(1.02)}
+
+@media (max-width:720px){
+    .collage{grid-template-columns:repeat(2,1fr)}
+    .collage-item{width:140px;height:180px}
+    .banner{flex-direction:column;text-align:center}
+    .banner-img{width:240px;height:340px}
+}
+
+/* Marcador de capturado */
+.collage-item.captured{opacity:0.7;outline:3px solid rgba(34,197,94,0.18)}
+.captured-badge{position:absolute;top:8px;right:8px;background:#22c55e;color:#fff;padding:6px 8px;border-radius:999px;font-weight:800}
+
+/* Modal */
+.modal{position:fixed;inset:0;background:rgba(2,6,23,0.6);display:none;align-items:center;justify-content:center;z-index:120}
+.modal-content{background:var(--card);padding:18px;border-radius:12px;max-width:520px;width:92%;text-align:center;box-shadow:var(--shadow)}
+.modal-img{width:180px;height:180px;object-fit:contain}
+.modal-close{position:absolute;right:18px;top:18px;background:transparent;border:none;font-size:20px;cursor:pointer}
+.modal-actions{display:flex;gap:12px;justify-content:center;margin-top:12px}
+
 /* Contador y controles */
 #contador{font-size:16px;margin-bottom:12px;color:var(--dark)}
 
