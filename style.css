@@ -256,3 +256,68 @@ nav button:hover{background:rgba(0,0,0,0.04)}
     .c-lista-pokemon{ width: 120px }
     .c-unpoke{ width: 56px; height: 72px }
 }
+.selectors {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.selectors label {
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.selectors select {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+.selectors button {
+  padding: 10px 20px;
+  background-color: #264653;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.batalla-cards {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin: 20px 0;
+  flex-wrap: wrap;
+}
+
+.batalla-cards .card {
+  background-color: #f8f8f8;
+  padding: 20px;
+  border-radius: 12px;
+  width: 200px;
+  text-align: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+
+.batalla-cards .card.ganador {
+  border: 2px solid #2a9d8f;
+  background-color: #e0fff4;
+  transform: scale(1.05);
+}
+
+.batalla-cards img {
+  width: 100px;
+}
+
+.log-combate {
+  text-align: left;
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 0 20px;
+  list-style: disc;
+}
